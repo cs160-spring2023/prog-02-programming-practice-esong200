@@ -4,11 +4,9 @@
 	<title>Task 6</title>
 
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-  <!-- let's include the css file for bootstrap, then our custom css -->
   <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
   
-  <!-- let's also include these jquery scripts. -->
   <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
 
@@ -83,31 +81,53 @@
   <script>
 	  $(function() {
 			$("#drag-box").draggable({
-				revert: true
+				revert: "invalid",
+				start: function() {
+					$(this).data("originalPosition", $(this).position());
+				}
 			});
 
 			$("#drop-box-1").droppable({
 				accept: "#drag-box",
 				classes: {
-					"ui-droppable-hover": "drop-hover-red",
-					"ui-droppable-active": "drop-active-red"
+					"ui-droppable-hover": "drop-hover-red"
+				},
+				over: function() {
+					$("#drag-box").css("background-color", "#ffaaaa");
+				},
+				out: function() {
+					$("#drag-box").css("background-color", "grey");
 				},
 				drop: function() {
 					$("#drag-box").css("background-color", "#800000");
+					$("#drag-box").draggable("option", "revert", false);
 				}
 			});
 
 			$("#drop-box-2").droppable({
 				accept: "#drag-box",
 				classes: {
-					"ui-droppable-hover": "drop-hover-blue",
-					"ui-droppable-active": "drop-active-blue"
+					"ui-droppable-hover": "drop-hover-blue"
+				},
+				over: function() {
+					$("#drag-box").css("background-color", "#aaaaff");
+				},
+				out: function() {
+					$("#drag-box").css("background-color", "grey");
 				},
 				drop: function() {
 					$("#drag-box").css("background-color", "#000080");
+					$("#drag-box").draggable("option", "revert", false);
 				}
 			});
+			$("#reset-button").on("click", function() {
+			var originalPosition = $("#drag-box").data("originalPosition");
+			$("#drag-box").css("background-color", "grey");
+			$("#drag-box").css("left", originalPosition.left + "px");
+			$("#drag-box").css("top", originalPosition.top + "px");
+			$("#drag-box").draggable("option", "revert", "invalid");
 		});
-  </script>
+	});
+</script>
 </body>
 </html>
