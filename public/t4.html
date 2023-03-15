@@ -25,18 +25,23 @@
 
 		// get 3-hourly forecast for the next 24 hours
 		$.getJSON(apiUrl, function(data) {
-			var hourlyData = data.list.filter(function(forecast) {
-				return forecast.dt_txt.match(/09:00:00/) || forecast.dt_txt.match(/12:00:00/) || forecast.dt_txt.match(/15:00:00/);
-			});
-			$.each(hourlyData, function(index, value) {
-				var time = new Date(value.dt * 1000).toLocaleString("en-US", {timeZone: "America/Los_Angeles", hour: "numeric", hour12: true});
-				var weather = value.weather[0].description;
-				var temp = Math.round(value.main.temp)+"°F";
-				var windSpeed = Math.round(value.wind.speed)+" mph";
+      var currentTimeInMilliseconds = new Date().getTime();
+      var twentyFourHoursLater = currentTimeInMilliseconds + 24 * 60 * 60 * 1000;
 
-				$("#hourly-forecast").append("<tr><td>"+time+"</td><td>"+weather+"</td><td>"+temp+"</td><td>"+windSpeed+"</td></tr>");
-			});
-		});
+      var hourlyData = data.list.filter(function(forecast) {
+        var forecastTime = new Date(forecast.dt * 1000).getTime();
+        return forecastTime > currentTimeInMilliseconds && forecastTime < twentyFourHoursLater;
+      });
+
+      $.each(hourlyData, function(index, value) {
+        var time = new Date(value.dt * 1000).toLocaleString("en-US", {timeZone: "America/Los_Angeles", hour: "numeric", hour12: true});
+        var weather = value.weather[0].description;
+        var temp = Math.round(value.main.temp)+"°F";
+        var windSpeed = Math.round(value.wind.speed)+" mph";
+
+        $("#hourly-forecast").append("<tr><td>"+time+"</td><td>"+weather+"</td><td>"+temp+"</td><td>"+windSpeed+"</td></tr>");
+      });
+    });
 	});
 	</script>
 </head>
