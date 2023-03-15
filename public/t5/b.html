@@ -2,18 +2,51 @@
 
 <html>
 <head>
-	<title></title>
+	<title>Grid Pattern</title>
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-	<!-- let's include the css file for bootstrap, then our custom css -->
 	<link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="/css/main.css" />
-	
-	<!-- let's also include these jquery scripts. -->
+	<style>
+		.container-fluid {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+		}
+		.box {
+			flex-basis: 33.33%;
+			padding: 5%;
+			box-sizing: border-box;
+		}
+		.color1 {
+			background-color: #ff6666;
+		}
+		.color2 {
+			background-color: #66b3ff;
+		}
+		.color3 {
+			background-color: #ffd966;
+		}
+		.color4 {
+			background-color: #b3ffb3;
+		}
+		.color5 {
+			background-color: #ff99cc;
+		}
+		.color6 {
+			background-color: #9999ff;
+		}
+	</style>
 	<script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
 	<script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
 </head>
 <body>
-	<!-- Your layout here -->
-
+	<div class="container-fluid">
+		<div class="box color1"></div>
+		<div class="box color2"></div>
+		<div class="box color3"></div>
+		<div class="box color4"></div>
+		<div class="box color5"></div>
+		<div class="box color6"></div>
+	</div>
 </body>
 </html>

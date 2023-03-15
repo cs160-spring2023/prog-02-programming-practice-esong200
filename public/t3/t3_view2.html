@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task 3 View 2</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  
+  <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+  <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#image').on('click', function(event) {
+        const imageHeight = $(this).height();
+        const clickPosition = event.pageY - $(this).offset().top;
+
+        if (clickPosition < imageHeight / 2) {
+          window.location.href = 't3_view3.html';
+        } else {
+          window.location.href = 't3_view5.html';
+        }
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+      		<a href="/" class="btn btn-light float-right">
+          		Back
+      		</a>
+    	</div>
+        <img id="image" src="/Images/IMG_6384.png" style="cursor:pointer;">
+	</div>
+</body>
+</html>

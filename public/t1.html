@@ -68,33 +68,33 @@
 
 
 <script type="text/javascript">
-  // your solution here
-  $(document).ready(function() {
-    // hide purple bubbles when clicked
-    $('.bg-purple').click(function() {
-      $('.bg-purple').hide();
-    });
-
-    // hide green and blue bubbles when clicked on green bubble
-    $('.bg-green').click(function() {
-      $('.bg-green').hide();
-      $('.bg-blue').hide();
-    });
-
-    // hide bordered orange bubbles when clicked on bordered orange bubble
-    $('.bg-orange.p2-border').click(function() {
-      $('.bg-orange.p2-border').hide();
-    });
-
-    // hide gradient bubble when hovering over it
-    $('#gradient-circle').hover(function() {
-      $(this).hide();
-    });
-     // add click event handler for the reset button
-     $('button.btn').click(function() {
-      $('.shape-container div').show();
-    });
+$(document).ready(function() {
+  // hide purple bubbles when clicked
+  $('.bg-purple').click(function() {
+    $('.bg-purple').hide();
   });
+
+  // hide green and blue bubbles when clicked on green bubble
+  $('.bg-green').click(function() {
+    $('.bg-green').hide();
+    $('.bg-blue').hide();
+  });
+
+  // hide bordered orange bubbles when clicked on non-bordered orange bubble
+  $('.bg-orange:not(.p2-border)').click(function() {
+    $('.bg-orange.p2-border').hide();
+  });
+
+  // hide gradient bubble when hovering over it
+  $('#gradient-circle').hover(function() {
+    $(this).hide();
+  });
+
+  // add click event handler for the reset button
+  $('button.btn').click(function() {
+    $('.shape-container div').show();
+  });
+});
 </script>
 </body>
 </html>

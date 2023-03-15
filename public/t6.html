@@ -29,17 +29,36 @@
 			padding: 5px;
 		}
 
+		.drop-hover-red {
+			background: #ffaaaa;
+		}
+
+		.drop-hover-blue {
+			background: #aaaaff;
+		}
+
+		.drop-active-red {
+			background: #800000;
+		}
+
+		.drop-active-blue {
+			background: #000080;
+		}
+
 	</style>
 
 </head>
 
 <body>
 	<div class="container">
-		    <div class="row">
-      <a href="/" class="btn btn-light float-right">
-          Back
-      </a>
-    </div>
+		<div class="row">
+      		<a href="/" class="btn btn-light float-right">
+          		Back
+      		</a>
+			  <button id="reset-button" class="btn btn-light float-right mr-2">
+				Reset
+			</button>
+    	</div>
 		<div class="row">
 			<div class="col-12">
 				<h3>Task 6</h3>
@@ -62,7 +81,33 @@
 		</div>
 	</div>
   <script>
-	  // your solution here
+	  $(function() {
+			$("#drag-box").draggable({
+				revert: true
+			});
+
+			$("#drop-box-1").droppable({
+				accept: "#drag-box",
+				classes: {
+					"ui-droppable-hover": "drop-hover-red",
+					"ui-droppable-active": "drop-active-red"
+				},
+				drop: function() {
+					$("#drag-box").css("background-color", "#800000");
+				}
+			});
+
+			$("#drop-box-2").droppable({
+				accept: "#drag-box",
+				classes: {
+					"ui-droppable-hover": "drop-hover-blue",
+					"ui-droppable-active": "drop-active-blue"
+				},
+				drop: function() {
+					$("#drag-box").css("background-color", "#000080");
+				}
+			});
+		});
   </script>
 </body>
 </html>

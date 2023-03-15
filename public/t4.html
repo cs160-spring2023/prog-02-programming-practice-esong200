@@ -1,33 +1,73 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-	<title></title>
+	<title>Weather Forecast</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-  <!-- let's include the css file for bootstrap, then our custom css -->
-  <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
-  <!-- let's also include these jquery scripts. -->
-  <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
-  <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<!-- let's include the css file for bootstrap, then our custom css -->
+	<link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+	<!-- let's also include these jquery scripts. -->
+	<script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+	<script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+
+	<script>
+	$(document).ready(function() {
+		var apiKey = "5896b471f4b9c81dc383a584e3073fce";
+		var lat = 37.87;
+		var lon = -122.27;
+		var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&units=imperial&appid="+apiKey;
+
+		// get current time in chosen location
+		var currentTime = new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"});
+		$("#current-time").text("Current Time: "+currentTime+", Berkeley, CA");
+
+		// get 3-hourly forecast for the next 24 hours
+		$.getJSON(apiUrl, function(data) {
+			var hourlyData = data.list.filter(function(forecast) {
+				return forecast.dt_txt.match(/09:00:00/) || forecast.dt_txt.match(/12:00:00/) || forecast.dt_txt.match(/15:00:00/);
+			});
+			$.each(hourlyData, function(index, value) {
+				var time = new Date(value.dt * 1000).toLocaleString("en-US", {timeZone: "America/Los_Angeles", hour: "numeric", hour12: true});
+				var weather = value.weather[0].description;
+				var temp = Math.round(value.main.temp)+"°F";
+				var windSpeed = Math.round(value.wind.speed)+" mph";
+
+				$("#hourly-forecast").append("<tr><td>"+time+"</td><td>"+weather+"</td><td>"+temp+"</td><td>"+windSpeed+"</td></tr>");
+			});
+		});
+	});
+	</script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-          <a href="/" class="btn btn-light float-right">
-              Back
-          </a>
-      </div>
-  </div>
-  
-  <!-- Your weather forecast here! -->
-
-  <script type="text/javascript">
-	// your solution here
-
-
-</script>
+	<div class="container">
+		<div class="row">
+			<a href="/" class="btn btn-light float-right">
+				Back
+			</a>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2 id="current-time"></h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h4>3-Hourly Forecast:</h4>
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Time</th>
+				      <th scope="col">Weather</th>
+				      <th scope="col">Temperature</th>
+				      <th scope="col">Wind Speed</th>
+				    </tr>
+				  </thead>
+				  <tbody id="hourly-forecast">
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
-</html>

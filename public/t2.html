@@ -26,7 +26,7 @@
         <h3>Task 2</h3>
       </div>
       <div class="col-6">
-        <button class="btn btn-light float-right">
+        <button id="stopButton" class="btn btn-light float-right">
           Stop
         </button>
       </div>
@@ -45,7 +45,30 @@
 
 <script type="text/javascript">
 
-  // your solution here
+  // Get the shape container element
+  var shape_container = document.querySelector('.shape-container');
+
+  // Set a counter for the number of bubbles added
+  var bubble_count = 0;
+
+  // Create a function to add a bubble to the container
+  function add_bubble() {
+    // Create a new bubble element
+    var new_bubble = document.createElement('div');
+    new_bubble.classList.add('p2-circle', 'bg-blue');
+    new_bubble.textContent = ++bubble_count;
+    shape_container.appendChild(new_bubble);
+  }
+
+  // Add a new bubble every 1 second
+  var bubble_interval = setInterval(add_bubble, 1000);
+
+  // Add an event listener to the stop button
+  var stop_button = document.getElementById('stop_button');
+  stop_button.addEventListener('click', function() {
+    // Clear the interval so no more bubbles are added
+    clearInterval(bubble_interval);
+  });
 
 </script>
 </body>

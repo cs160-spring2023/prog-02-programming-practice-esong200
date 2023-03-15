@@ -1,20 +1,41 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-	<title></title>
+	<title>Color Grid Layout</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-	<!-- let's include the css file for bootstrap, then our custom css -->
-	<link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="/css/main.css" />
-	
-	<!-- let's also include these jquery scripts. -->
-	<script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
-	<script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<!-- Custom CSS -->
+	<style type="text/css">
+		.color-band {
+			height: 33.33vh;
+		}
+		.color1 {
+			background-color: blue;
+		}
+		.color2 {
+			background-color: white;
+		}
+		.color3 {
+			background-color: red;
+		}
+	</style>
 </head>
 <body>
-	<!-- Your layout here -->
+
+	<div class="container-fluid p-0">
+		<div class="row no-gutters">
+			<div class="col-12 color-band color1"></div>
+			<div class="col-12 color-band color2"></div>
+			<div class="col-12 color-band color3"></div>
+		</div>
+	</div>
+
+	<!-- jQuery and Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
