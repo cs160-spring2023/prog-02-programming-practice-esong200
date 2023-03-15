@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Task 3 View 3</title>
+	<title>Task 3 View 4</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-  <!-- let's include the css file for bootstrap, then our custom css -->
-  <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
-  <!-- let's also include these jquery scripts. -->
-  <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
-  <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <!-- let's include the css file for bootstrap, then our custom css -->
+    <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    
+    <!-- let's also include these jquery scripts. -->
+    <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('img').on('click', function(e) {
+                var imgHeight = $(this).height();
+                var clickY = e.pageY - $(this).offset().top;
+
+                if (clickY <= imgHeight / 2) {
+                    window.location.href = "t3_view5.html";
+                } else {
+                    window.location.href = "t3_view3.html";
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
-	<div class="container">
-		    <div class="row">
-      <a href="/" class="btn btn-light float-right">
-          Back
-      </a>
+    <div class="container">
+        <div class="row">
+            <a href="/" class="btn btn-light float-right">
+                Back
+            </a>
+        </div>
+        <img src="/Images/IMG_6386.png" style="cursor:pointer">
     </div>
-        <img src = "/Images/IMG_6385.png">
-	</div>
 </body>
 </html>
