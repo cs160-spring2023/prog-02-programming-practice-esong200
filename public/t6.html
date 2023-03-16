@@ -25,22 +25,7 @@
 			width: 100px;
 			background: grey;
 			padding: 5px;
-		}
-
-		.drop-hover-red {
-			background: #ffaaaa;
-		}
-
-		.drop-hover-blue {
-			background: #aaaaff;
-		}
-
-		.drop-active-red {
-			background: #800000;
-		}
-
-		.drop-active-blue {
-			background: #000080;
+			position: absolute;
 		}
 
 	</style>
@@ -50,18 +35,16 @@
 <body>
 	<div class="container">
 		<div class="row">
-      		<a href="/" class="btn btn-light float-right">
-          		Back
-      		</a>
-			  <button id="reset-button" class="btn btn-light float-right mr-2">
-				Reset
-			</button>
-    	</div>
+			<a href="/" class="btn btn-light float-right">
+				Back
+			</a>
+			<button id="reset-btn" class="btn btn-light float-right mr-2">Reset</button>
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<h3>Task 6</h3>
 				<div class="shape-container">
-					<div id="origin-box" class="large-box">
+					<div id="origin-box" class="large-box position-relative">
 						<div id="drag-box" class="small-box text-light">
 						  <p>Box</p>
 						</div>
@@ -79,55 +62,52 @@
 		</div>
 	</div>
   <script>
-	  $(function() {
-			$("#drag-box").draggable({
-				revert: "invalid",
-				start: function() {
-					$(this).data("originalPosition", $(this).position());
-				}
-			});
+    const originalBoxPosition = { top: 0, left: 0 };
+    const originalBoxColor = $("#drag-box").css("background-color");
 
-			$("#drop-box-1").droppable({
-				accept: "#drag-box",
-				classes: {
-					"ui-droppable-hover": "drop-hover-red"
-				},
-				over: function() {
-					$("#drag-box").css("background-color", "#ffaaaa");
-				},
-				out: function() {
-					$("#drag-box").css("background-color", "grey");
-				},
-				drop: function() {
-					$("#drag-box").css("background-color", "#800000");
-					$("#drag-box").draggable("option", "revert", false);
-				}
-			});
+    $("#drag-box").draggable({
+      revert: function(event, ui) {
+        $(this).data("ui-draggable").originalPosition = originalBoxPosition;
+        return !event;
+      },
+      start: function() {
+        $(this).css("background-color", "grey");
+      },
+      drag: function(event, ui) {
+        if (overlaps(this, $("#drop-box-1"))) {
+          $(this).css("background-color", "lightcoral");
+        } else if (overlaps(this, $("#drop-box-2"))) {
+          $(this).css("background-color", "lightblue");
+        } else {
+          $(this).css("background-color", "grey");
+        }
+      }
+    });
 
-			$("#drop-box-2").droppable({
-				accept: "#drag-box",
-				classes: {
-					"ui-droppable-hover": "drop-hover-blue"
-				},
-				over: function() {
-					$("#drag-box").css("background-color", "#aaaaff");
-				},
-				out: function() {
-					$("#drag-box").css("background-color", "grey");
-				},
-				drop: function() {
-					$("#drag-box").css("background-color", "#000080");
-					$("#drag-box").draggable("option", "revert", false);
-				}
-			});
-			$("#reset-button").on("click", function() {
-			var originalPosition = $("#drag-box").data("originalPosition");
-			$("#drag-box").css("background-color", "grey");
-			$("#drag-box").css("left", originalPosition.left + "px");
-			$("#drag-box").css("top", originalPosition.top + "px");
-			$("#drag-box").draggable("option", "revert", "invalid");
-		});
-	});
-</script>
+    $("#drop-box-1, #drop-box-2").droppable({
+      drop: function(event, ui) {
+        const droppedBox = $(ui.draggable);
+        if (this.id === "drop-box-1") {
+          droppedBox.css("background-color", "darkred");
+        } else {
+          droppedBox.css("background-color", "darkblue");
+        }
+      }
+    });
+
+    $("#reset-btn").click(function() {
+     $("#drag-box").css("background-color", originalBoxColor);
+	 $("#drag-box").animate(originalBoxPosition, "slow");
+    });
+
+	function overlaps(a, b) {
+		const aRect = a.getBoundingClientRect();
+		const bRect = b[0].getBoundingClientRect();
+		return !(aRect.bottom < bRect.top ||
+		aRect.top > bRect.bottom ||
+		aRect.right < bRect.left ||
+		aRect.left > bRect.right);
+	}
+ </script>
 </body>
-</html>
+</html>	
